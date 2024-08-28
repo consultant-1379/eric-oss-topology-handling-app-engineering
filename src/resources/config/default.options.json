@@ -1,0 +1,342 @@
+{
+  "insecureSkipTLSVerify": true,
+  "setupTimeout": "5m",
+  "teardownTimeout": "5m",
+  "noCookiesReset": true,
+  "scenarios": {
+    "get_scrape_pools": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "testScrapePools"
+    },
+    "nrcell_get_operation": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "NRCellReadOperation"
+    },
+    "nrcell_create_operation": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "NRCellCreateOperation"
+    },
+    "nrcell_update_operation": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "NRCellUpdateOperation"
+    },
+    "nrcell_delete_operation": {
+      "executor": "per-vu-iterations",
+      "startTime": "20m",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "NRCellDeleteOperation"
+    },
+    "nrcell_load": {
+      "executor": "constant-vus",
+      "vus": 4,
+      "duration": "10m",
+      "exec": "NRCellLoad",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "ltecell_get_operation": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "LTECellReadOperation"
+    },
+    "ltecell_create_operation": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "LTECellCreateOperation"
+    },
+    "ltecell_update_operation": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "LTECellUpdateOperation"
+    },
+    "ltecell_delete_operation": {
+      "executor": "per-vu-iterations",
+      "startTime": "10m",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "LTECellDeleteOperation"
+    },
+    "ltecell_load": {
+      "executor": "constant-vus",
+      "vus": 4,
+      "duration": "10m",
+      "exec": "LTECellLoad",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "nrsectorcarrier_get_operation": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "NRSectorCarrierReadOperation"
+    },
+    "nrsectorcarrier_create_operation": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "NRSectorCarrierCreateOperation"
+    },
+    "nrsectorcarrier_update_operation": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "NRSectorCarrierUpdateOperation"
+    },
+    "nrsectorcarrier_delete_operation": {
+      "executor": "per-vu-iterations",
+      "startTime": "10m",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "NRSectorCarrierDeleteOperation"
+    },
+    "nrsectorcarrier_load": {
+      "executor": "constant-vus",
+      "vus": 4,
+      "duration": "10m",
+      "exec": "NRSectorCarrierLoad",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "datasync_enodeb_load": {
+      "executor": "constant-vus",
+      "vus": 2,
+      "duration": "10m",
+      "exec": "testENodeB",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "datasync_enodeb": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "testENodeB"
+    },
+    "datasync_gnbdu_load": {
+      "executor": "constant-vus",
+      "vus": 2,
+      "duration": "10m",
+      "exec": "testGNBDU",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "datasync_gnbdu": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "testGNBDU"
+    },
+    "datasync_gnbcuup_load": {
+      "executor": "constant-vus",
+      "vus": 2,
+      "duration": "10m",
+      "exec": "testGNBCUUP",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "datasync_gnbcuup": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "testGNBCUUP"
+    },
+    "datasync_gnbcucp_load": {
+      "executor": "constant-vus",
+      "vus": 2,
+      "duration": "10m",
+      "exec": "testGNBCUCP",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "datasync_gnbcucp": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "testGNBCUCP"
+    },
+    "nrcellassociatedwithgnbdu_get_operation": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "NRCellAssociatedWithGNBDUReadOperation",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "nrsectorcarrierassociatedwithnrcell_get_operation": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "NRSectorCarrierAssociatedWithNRCellReadOperation",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "cts_ui_rest_calls": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "CTSUIRestCalls",
+      "tags": {
+        "load": "true",
+        "legacy": "false",
+        "type": "UI"
+      }
+    },
+    "sanity_checking_api_gw": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "sanityCheckingAPIGW"
+    },
+    "NRCell_READ_operation_with_peak": {
+      "executor": "ramping-arrival-rate",
+      "startTime": "10m",
+      "startRate": 85,
+      "stages": [
+        {
+          "duration": "2m",
+          "target": 85
+        },
+        {
+          "duration": "5m",
+          "target": 540
+        },
+        {
+          "duration": "1m",
+          "target": 540
+        },
+        {
+          "duration": "2m",
+          "target": 0
+        }
+      ],
+      "preAllocatedVUs": 1,
+      "maxVUs": 20,
+      "exec": "NRCellReadOperation",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    }
+  },
+  "thresholds": {
+    "http_req_duration{type:CREATE}": [
+      "avg<650"
+    ],
+    "http_req_duration{type:CREATE - DATASYNC}": [
+      "avg<650"
+    ],
+    "http_req_duration{type:UPDATE}": [
+      "avg<650"
+    ],
+    "http_req_duration{type:DELETE}": [
+      "avg<500"
+    ],
+    "http_req_duration{type:READ}": [
+      "avg<500"
+    ],
+    "http_req_duration{type:QUERY}": [
+      "avg<500"
+    ],
+    "http_req_duration{scenario:NRCell_READ_operation_with_peak}": [
+      "avg<500"
+    ],
+    "checks{legacy:false}": [
+      "rate>0.99"
+    ],
+    "checks{load:true}": [
+      "rate>0.99"
+    ],
+    "checks{type:ENODEB create}": [
+      "rate>0.99"
+    ],
+    "checks{type:ENODEB delete}": [
+      "rate>0.99"
+    ],
+    "checks{type:GNBDU create}": [
+      "rate>0.99"
+    ],
+    "checks{type:GNBDU delete}": [
+      "rate>0.99"
+    ],
+    "checks{type:GNBCUCP create}": [
+      "rate>0.99"
+    ],
+    "checks{type:GNBCUCP delete}": [
+      "rate>0.99"
+    ],
+    "checks{type:GNBCUUP create}": [
+      "rate>0.99"
+    ],
+    "checks{type:GNBCUUP delete}": [
+      "rate>0.99"
+    ],
+    "checks{type:NRCell create}": [
+      "rate>0.99"
+    ],
+    "checks{type:NRCell read}": [
+      "rate>0.99"
+    ],
+    "checks{type:NRCell update}": [
+      "rate>0.99"
+    ],
+    "checks{type:NRCell delete}": [
+      "rate>0.99"
+    ],
+    "checks{type:LTECell create}": [
+      "rate>0.99"
+    ],
+    "checks{type:LTECell read}": [
+      "rate>0.99"
+    ],
+    "checks{type:LTECell update}": [
+      "rate>0.99"
+    ],
+    "checks{type:LTECell delete}": [
+      "rate>0.99"
+    ],
+    "checks{type:NRSectorCarrier create}": [
+      "rate>0.99"
+    ],
+    "checks{type:NRSectorCarrier read}": [
+      "rate>0.99"
+    ],
+    "checks{type:NRSectorCarrier update}": [
+      "rate>0.99"
+    ],
+    "checks{type:NRSectorCarrier delete}": [
+      "rate>0.99"
+    ],
+    "checks{type:UI}": [
+      "rate>0.99"
+    ]
+  }
+}

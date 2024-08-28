@@ -1,0 +1,74 @@
+#  -------------------------------------------------------------------------------
+#  *******************************************************************************
+#  * COPYRIGHT Ericsson 2021
+#  *
+#  * The copyright to the computer program(s) herein is the property of
+#  * Ericsson Inc. The programs may be used and/or copied only with written
+#  * permission from Ericsson Inc. or in accordance with the terms and
+#  * conditions stipulated in the agreement/contract under which the
+#  * program(s) have been supplied.
+#  *******************************************************************************
+#  *------------------------------------------------------------------------------
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: topology-handling-k6-testsuite
+  labels:
+    app: topology-handling-k6
+spec:
+  containers:
+    - name: topology-handling-k6
+      env:
+        - name: EAI_URL
+          value: "http://eric-oss-cmn-topology-svc-core:8080/oss-core-ws/"
+        - name: hostname_url
+          valueFrom:
+            configMapKeyRef:
+              name: hostname-configmap
+              key: hostname_url
+        - name: BUILD_URL
+          value: "%BUILD_URL%"
+        - name: APP_VERSION
+          value: "%APP_VERSION%"
+        - name: K6_OUT
+          value: "json=test-output.json"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: testware-resources-secret
+              key: database_url
+        - name: K6_TOOL_GUI_URL
+          valueFrom:
+            secretKeyRef:
+              name: testware-resources-secret
+              key: gui_url
+        - name: API_URL
+          valueFrom:
+            secretKeyRef:
+              name: testware-resources-secret
+              key: api_url
+        - name: IAM_HOST
+          value: {{ $.Values.env.IAM_URL }}
+        - name: EIC_HOST
+          value: {{ $.Values.env.EIC_HOST }}
+        - name: GAS_HOST
+          value: {{ $.Values.env.GAS_HOST }}
+        - name: SEF_STATUS
+          value: {{ $.Values.env.SEF_STATUS }}
+      image: armdocker.rnd.ericsson.se/proj-eric-oss-drop/oss-testware/eric-oss-topology-handling-app-test:latest
+      imagePullPolicy: Always
+      resources: {}
+      securityContext:
+        allowPrivilegeEscalation: true
+        runAsNonRoot: false
+        runAsUser: 0
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+  dnsPolicy: ClusterFirst
+  imagePullSecrets:
+    - name: k8s-registry-secret
+  schedulerName: default-scheduler
+  restartPolicy: Never
+  securityContext: {}
+  terminationGracePeriodSeconds: 5

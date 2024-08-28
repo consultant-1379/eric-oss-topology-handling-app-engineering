@@ -1,0 +1,13 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: eric-topology-handling-eai-k6-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: eric-oss-cmn-topology-svc-core
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: topology-handling-k6

@@ -1,0 +1,167 @@
+{
+  "insecureSkipTLSVerify": true,
+  "setupTimeout": "5m",
+  "noCookiesReset": true,
+  "scenarios": {
+    "nrcell_get_operationPE": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "NRCellReadOperationPE",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "ltecell_get_operation": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "LTECellReadOperationPE",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "nrsectorcarrier_get_operation": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "NRSectorCarrierReadOperationPE",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "nrcellassociatedwithgnbdu_get_operation": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "NRCellAssociatedWithGNBDUReadOperationPE",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "nrsectorcarrierassociatedwithnrcell_get_operation": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "NRSectorCarrierAssociatedWithNRCellReadOperationPE",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "datasync_enodeb": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "PEDatasyncMeasurementENodeB",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "datasync_gnbcucp": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "PEDatasyncMeasurementGNBCUCP",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "datasync_gnbcuup": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "PEDatasyncMeasurementGNBCUUP",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "datasync_gnbdu": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "PEDatasyncMeasurementGNBDU",
+      "tags": {
+        "load": "true",
+        "legacy": "false"
+      }
+    },
+    "cts_ui_rest_calls": {
+      "executor": "constant-vus",
+      "vus": 1,
+      "duration": "10m",
+      "exec": "CTSUIRestCalls",
+      "tags": {
+        "load": "true",
+        "legacy": "false",
+        "type": "UI"
+      }
+    },
+    "sanity_checking_api_gw": {
+      "executor": "per-vu-iterations",
+      "vus": 1,
+      "iterations": 1,
+      "exec": "sanityCheckingAPIGW"
+    }
+  },
+  "thresholds": {
+    "http_req_duration{type:CREATE - DATASYNC}": [
+      "avg<650"
+    ],
+    "http_req_duration{type:READ}": [
+      "avg<500"
+    ],
+    "http_req_duration{type:QUERY}": [
+      "avg<500"
+    ],
+    "checks{legacy:false}": [
+      "rate>0.99"
+    ],
+    "checks{load:true}": [
+      "rate>0.99"
+    ],
+    "checks{type:ENODEB create}": [
+      "rate>0.99"
+    ],
+    "checks{type:ENODEB delete}": [
+      "rate>0.99"
+    ],
+    "checks{type:GNBDU create}": [
+      "rate>0.99"
+    ],
+    "checks{type:GNBDU delete}": [
+      "rate>0.99"
+    ],
+    "checks{type:GNBCUCP create}": [
+      "rate>0.99"
+    ],
+    "checks{type:GNBCUCP delete}": [
+      "rate>0.99"
+    ],
+    "checks{type:GNBCUUP create}": [
+      "rate>0.99"
+    ],
+    "checks{type:GNBCUUP delete}": [
+      "rate>0.99"
+    ],
+    "checks{type:NRCell read}": [
+      "rate>0.99"
+    ],
+    "checks{type:LTECell read}": [
+      "rate>0.99"
+    ],
+    "checks{type:NRSectorCarrier read}": [
+      "rate>0.99"
+    ],
+    "checks{type:UI}": [
+      "rate>0.99"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+replicaCount: 1
+
+images:
+  testwareImage: ${defaultDockerTag}
+
+build:
+  version: ${version}
+  name: ${name}
+
+env:
+  APP_VERSION: ""  # ${version}
+  BUILD_URL: "https://fem8s11-eiffel052.eiffel.gic.ericsson.se:8443/jenkins/view/TH/job/TH-K6-Functional-Testing/"
+  STAGING_TYPE: "APPLICATION"
+  PRODUCT: ""
+  PRODUCT_VERSION: ""
+  ENVIRONMENT: "production"
+  hostname_url: ""
+  IAM_HOST: ""
+  EIC_HOST: ""
+  GAS_HOST: ""
+  SEF_STATUS: "" #enabled/disabled -> true/false
+  SEF_ENABLED_TESTS: true
+  OPTIONS_FILE: "default.options.json"
+  ADDITIONAL_ARGS: '--insecure-skip-tls-verify --quiet'
+  TESTWARE_NAME: "eric-oss-topology-handling-app-test"
+  TEST_VERSION: ${version}
+  PRINT_K6_OUTPUT: true
+  TARGET_CLUSTER: ""
+  TARGET_NAMESPACE: ""

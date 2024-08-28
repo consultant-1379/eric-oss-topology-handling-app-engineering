@@ -1,0 +1,170 @@
+#  -------------------------------------------------------------------------------
+#  *******************************************************************************
+#  * COPYRIGHT Ericsson 2021
+#  *
+#  * The copyright to the computer program(s) herein is the property of
+#  * Ericsson Inc. The programs may be used and/or copied only with written
+#  * permission from Ericsson Inc. or in accordance with the terms and
+#  * conditions stipulated in the agreement/contract under which the
+#  * program(s) have been supplied.
+#  *******************************************************************************
+#  *------------------------------------------------------------------------------
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: topology-handling-k6-testsuite
+  labels:
+    app: topology-handling-k6
+spec:
+  containers:
+    - name: topology-handling-k6
+      env:
+        - name: EAI_URL
+          value: "http://eric-oss-cmn-topology-svc-core:8080/oss-core-ws/"
+        - name: OPTIONS_FILE
+          value: "resources/config/default.options.json"
+        - name: hostname_url_cm
+          valueFrom:
+            configMapKeyRef:
+              name: th-k6-configmap
+              key: hostname_url
+        - name: IAM_HOST_CM
+          valueFrom:
+            configMapKeyRef:
+              name: th-k6-configmap
+              key: IAM_HOST
+        - name: EIC_HOST_CM
+          valueFrom:
+            configMapKeyRef:
+              name: th-k6-configmap
+              key: EIC_HOST
+        - name: GAS_HOST_CM
+          valueFrom:
+            configMapKeyRef:
+              name: th-k6-configmap
+              key: GAS_HOST
+        - name: SEF_STATUS_CM
+          valueFrom:
+            configMapKeyRef:
+              name: th-k6-configmap
+              key: SEF_STATUS
+        - name: SEF_ENABLED_TESTS
+          valueFrom:
+            configMapKeyRef:
+              name: testware-global-config
+              key: sef-enabled
+      volumeMounts:
+        - name: th-k6-src-volume
+          mountPath: "/home/k6"
+      image: armdocker.rnd.ericsson.se/dockerhub-ericsson-remote/loadimpact/k6:latest
+      command: ["/bin/sh"]
+      args: ["runK6TH.sh"]
+      imagePullPolicy: Always
+      resources: {}
+      securityContext:
+        readOnlyRootFilesystem: false
+        allowPrivilegeEscalation: true
+        runAsNonRoot: false
+        runAsUser: 0
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+  volumes:
+    - name: th-k6-src-volume
+      configMap:
+        name: th-k6-configmap
+        items:
+          - key: "th-defaultoptions"
+            path: "resources/config/default.options.json"
+
+          - key: "th-test"
+            path: "main.js"
+
+          - key: "th-PayloadGenerators"
+            path: "PayloadGenerators.js"
+
+          - key: "th-CommonTopologyUIRestCalls"
+            path: "usecases/CommonTopologyUIRestCalls.js"
+
+          - key: "th-FiveQIFlowService"
+            path: "usecases/legacy/FiveQIFlowService.js"
+
+          - key: "th-FiveQISetService"
+            path: "usecases/legacy/FiveQISetService.js"
+
+          - key: "th-LTECellOperations"
+            path: "usecases/LTECellOperations.js"
+
+          - key: "th-ngcorenetfunction"
+            path: "usecases/legacy/ngcorenetfunction.js"
+
+          - key: "th-NRCellAssociatedWithGNBDURead"
+            path: "usecases/NRCellAssociatedWithGNBDURead.js"
+
+          - key: "th-NRCellOperations"
+            path: "usecases/NRCellOperations.js"
+
+          - key: "th-nrf"
+            path: "usecases/legacy/nrf.js"
+
+          - key: "th-NRSectorCarrierAssociatedWithNRCellRead"
+            path: "usecases/NRSectorCarrierAssociatedWithNRCellRead.js"
+
+          - key: "th-NRSectorCarrierOperations"
+            path: "usecases/NRSectorCarrierOperations.js"
+
+          - key: "th-DatasyncOperations"
+            path: "usecases/DatasyncOperations.js"
+
+          - key: "th-PEDatasyncMeasurementENodeB"
+            path: "usecases/PE/PEDatasyncMeasurementENodeB.js"
+
+          - key: "th-PEDatasyncMeasurementGNBCUCP"
+            path: "usecases/PE/PEDatasyncMeasurementGNBCUCP.js"
+
+          - key: "th-PEDatasyncMeasurementGNBCUUP"
+            path: "usecases/PE/PEDatasyncMeasurementGNBCUUP.js"
+
+          - key: "th-PEDatasyncMeasurementGNBDU"
+            path: "usecases/PE/PEDatasyncMeasurementGNBDU.js"
+
+          - key: "th-sanityCheckingAPIGW"
+            path: "usecases/sanityCheckingAPIGW.js"
+
+          - key: "th-setup"
+            path: "usecases/setup.js"
+
+          - key: "th-smf"
+            path: "usecases/legacy/smf.js"
+
+          - key: "th-scrapepools"
+            path: "usecases/CheckScrapePoolsStatus.js"
+
+          - key: "run-k6"
+            path: "runK6TH.sh"
+
+          - key: "th-module-http"
+            path: "modules/k6extra/http.js"
+
+          - key: "th-module-check"
+            path: "modules/k6extra/check.js"
+
+          - key: "th-module-log"
+            path: "modules/k6extra/log.js"
+
+          - key: "th-module-triggerCTSInit"
+            path: "modules/triggerCTSInit.js"
+
+          - key: "th-utility-auth"
+            path: "utility/auth.js"
+
+          - key: "th-utility-constants"
+            path: "utility/constants.js"
+
+  dnsPolicy: ClusterFirst
+  imagePullSecrets:
+    - name: k8s-registry-secret
+  schedulerName: default-scheduler
+  restartPolicy: Never
+  securityContext: {}
+  terminationGracePeriodSeconds: 5
